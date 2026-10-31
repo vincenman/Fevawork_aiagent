@@ -1,0 +1,194 @@
+{
+  "name": "resume_summarization_v1",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        64
+      ],
+      "id": "3a38b9ff-121b-40f4-88e7-21258439a87a",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "fileSelector": "C:/temp/1901841_RESUME.pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        160
+      ],
+      "id": "6369f4b9-6c1b-4169-bdcf-652d02bae51a",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        96
+      ],
+      "id": "021e7a40-c8df-4302-a852-8442ef0372c5",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+      "typeVersion": 1,
+      "position": [
+        0,
+        272
+      ],
+      "id": "3cd262ce-3a0e-490f-835d-28658cb7e955",
+      "name": "Azure OpenAI Chat Model",
+      "credentials": {
+        "azureOpenAiApi": {
+          "id": "J7DA94ZUaqneadWo",
+          "name": "Azure Open AI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "options": {
+          "systemMessage": "Analyze the attached resume and extract the following information with the following format:\nName of the candidate: <put the name here>\nEducation: <put the education details here>\nWorking experience: <put the summarize of the working experience>\n\n",
+          "returnIntermediateSteps": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0b84e485-1312-4ef7-87e6-e63bd045c2af",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "output",
+        "options": {
+          "fileName": ""
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        336,
+        32
+      ],
+      "id": "efeb22e0-0b23-4d87-84a3-cb2d5c215265",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "C:/temp/result.txt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        560,
+        32
+      ],
+      "id": "0332053a-2755-4436-96e5-818ab9bca01f",
+      "name": "Read/Write Files from Disk1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Azure OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "96ff9d73-9a2a-4ad9-902c-3ca79144d66c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f8a8f523f69e735548ce4d87a29abb5537653c840b8e64bf72f7ae619aeef2ad"
+  },
+  "id": "XYmeIWHJ7oB7MhEi",
+  "tags": []
+}

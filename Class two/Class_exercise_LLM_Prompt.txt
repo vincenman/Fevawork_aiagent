@@ -1,0 +1,5 @@
+Analyze the attached resume and extract the following information with the following format:
+Name of the candidate: <put the name here>
+Education: <put the education details here>
+Working experience: <put the summarize of the working experience>
+

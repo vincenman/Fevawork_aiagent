@@ -1,0 +1,90 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Welcome to the testbed of AI Agent.\nJust ask your question here and we will get back to you asap.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -128,
+        32
+      ],
+      "id": "4271c079-4165-4c17-a606-908b6456168d",
+      "name": "When chat message received",
+      "webhookId": "0e22b4e4-e1ae-4824-88d2-3d318cc4715e"
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+      "typeVersion": 1,
+      "position": [
+        96,
+        192
+      ],
+      "id": "cd005863-45ef-40b2-a8ad-97685a0613cd",
+      "name": "Azure OpenAI Chat Model",
+      "credentials": {
+        "azureOpenAiApi": {
+          "id": "VaJkoZsaWTbTgdUp",
+          "name": "Azure Open AI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        80,
+        16
+      ],
+      "id": "e8383936-0fba-4082-966a-d121fef34c82",
+      "name": "Basic LLM Chain"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Azure OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b92fc565-42a6-4496-898e-b61b9fa5554c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "52242f84ce36d6c082d8a906ef8dbd9d5ae26a172e8f30bbe6a7b77c62bba263"
+  },
+  "id": "UBtsjTgzEC243Wwl",
+  "tags": []
+}

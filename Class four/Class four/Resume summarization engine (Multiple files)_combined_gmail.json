@@ -1,0 +1,272 @@
+{
+  "name": "Resume summarization engine (Multiple files)_combined",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        272
+      ],
+      "id": "d34fbaea-c6cb-4e9f-8225-d753fa529ae4",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "fileSelector": "C:/temp/*.pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "71e1e61b-71e7-486f-9d52-dfd357ae2387",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        352,
+        80
+      ],
+      "id": "aa5e88ff-806d-43c5-88b1-6ca3c7e1df77",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+      "typeVersion": 1,
+      "position": [
+        576,
+        480
+      ],
+      "id": "d10ea43e-225c-452b-878e-6ffe39804790",
+      "name": "Azure OpenAI Chat Model",
+      "credentials": {
+        "azureOpenAiApi": {
+          "id": "t6CE7Xx3Le1ATbY4",
+          "name": "Azure Open AI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "options": {
+          "systemMessage": "Analyze the attached resume and extract the following information with the following format:\nName of the candidate: <put the name here>\nEducation: <put the education details here>\nWorking experience: <put the summarize of the working experience>\n\n",
+          "returnIntermediateSteps": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        576,
+        208
+      ],
+      "id": "0d3cfc65-9cb2-46f3-8e6d-d9ce00d65080",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "summaries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        928,
+        208
+      ],
+      "id": "7c86df67-bceb-4e51-97ed-e26fd8b3b549",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "combinedSummary",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1344,
+        208
+      ],
+      "id": "c43990b1-bc38-4a8a-8b38-8d921264c751",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "C:/temp/result.txt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1552,
+        208
+      ],
+      "id": "e4aae6a0-9a6d-4bf6-9dd6-ddf8690ea058",
+      "name": "Read/Write Files from Disk1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the first incoming item (usually from Aggregate node)\nconst items = $input.all();\n\nif (items.length === 0 || !items[0].json.summaries) {\n  // Safety: return empty if no data\n  return [];\n}\n\nconst summaries = items[0].json.summaries;\n\n// Build the lines array\nconst lines = [];\n\nsummaries.forEach((item, index) => {\n  // Use basename → filename → fallback numbering\n  const filename = item.basename || item.filename || `Resume_${index + 1}`;\n  \n  lines.push(`=== ${filename} ===\\n`);\n  lines.push((item.output || '').trim());\n  lines.push('\\n\\n');  // separation between entries\n});\n\n// Create header with current date/time\nconst now = new Date();\nconst formattedDate = now.toLocaleString('en-US', {\n  year: 'numeric',\n  month: '2-digit',\n  day: '2-digit',\n  hour: '2-digit',\n  minute: '2-digit',\n  second: '2-digit',\n  hour12: false\n}).replace(/,/, '');  // remove comma → \"02/24/2026 14:35:22\"\n\nconst header = \n  `RESUME BATCH SUMMARY - Processed on ${formattedDate}\\n` +\n  `Total resumes processed: ${summaries.length}\\n` +\n  '='.repeat(50) + '\\n\\n';\n\n// Combine everything\nconst combinedText = header + lines.join('');\n\n// Return single item with the combined result\nreturn [{\n  json: {\n    combinedSummary: combinedText\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1136,
+        208
+      ],
+      "id": "378ed638-fc2d-41d6-ad11-874f25a34955",
+      "name": "Code in JS "
+    },
+    {
+      "parameters": {
+        "sendTo": "victorleetest1@gmail.com",
+        "subject": "testing",
+        "message": "={{ $json.combinedSummary }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1328,
+        -96
+      ],
+      "id": "302ecbb5-ed97-4de5-9b7d-2e544f5ac133",
+      "name": "Send a message",
+      "webhookId": "70607615-5968-4d04-b2e4-12e10b167929",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "3NHjEb6FphVzU4TP",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Azure OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Code in JS ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JS ": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "69e8274e-da72-439e-b1aa-779b12945534",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ff0186796fd8d3ba2cf35c2ef974a323be0a3bc643478e79560db2f74260dcde"
+  },
+  "nodeGroups": [],
+  "id": "zU3zVpaI7twMhPtQ",
+  "tags": []
+}

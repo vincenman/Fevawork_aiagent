@@ -1,0 +1,211 @@
+{
+  "name": "Personal assistant",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "...\nIf a clear action is described (e.g., “Email John the report”), select and call the appropriate tool with all required parameters.\n\n**For emails**: ALWAYS include a 'to' field with the recipient's email. \nPlease refer to the following mapping:\nAlan wong: victorleetest1@gmail.com\nSusan wong: victorleetest1@gmail.com\n\nIf missing, ask for clarification.\n\nAlways format tool invocation commands as structured JSON objects:\n{ \"action\": \"send_email\", \"to\": \"john@example.com\", \"subject\": \"...\", \"body\": \"...\" }\n\nSign off emails with \"Best,\\nVictor Lee\" unless otherwise specified.",
+          "returnIntermediateSteps": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "1ab7aedd-3225-4d0a-b3b0-fdf7c3319967",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+      "typeVersion": 1,
+      "position": [
+        128,
+        208
+      ],
+      "id": "7a91176a-4156-4ae6-8ec2-2cfd133461f7",
+      "name": "Azure OpenAI Chat Model",
+      "credentials": {
+        "azureOpenAiApi": {
+          "id": "fv8R4rhiU9guomlg",
+          "name": "Azure Open AI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4bef7da9-c44b-454a-a9f8-d0d89a92d2b3",
+      "name": "Telegram Trigger",
+      "webhookId": "37f74fc4-b825-42d5-a2b0-05dba01575eb",
+      "credentials": {
+        "telegramApi": {
+          "id": "gxEWs8Hr2o9NFSHD",
+          "name": "Telegram account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "727270924",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "disable_notification": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        576,
+        0
+      ],
+      "id": "e94d7ada-6719-4834-a17c-def5d56466fe",
+      "name": "Send a text message",
+      "webhookId": "9f20422d-a7f0-4c19-af8a-e11a95701bb5",
+      "credentials": {
+        "telegramApi": {
+          "id": "gxEWs8Hr2o9NFSHD",
+          "name": "Telegram account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionKey": "",
+        "contextWindowLength": 10
+      },
+      "id": "e8d0e92d-2556-42ef-9e9a-3ec8591a928f",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        320,
+        208
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $fromAI('to') }}",
+        "subject": "={{ $fromAI('subject') }}",
+        "message": "={{ $fromAI('message') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        528,
+        208
+      ],
+      "id": "8730412f-ccef-4e8d-b861-f5e33e645f42",
+      "name": "Send a message in Gmail1",
+      "webhookId": "23dafba9-44cd-497e-93cc-d349df0ba852",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "GiUMHDQGqr02l9nU",
+          "name": "Gmail account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": ""
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        16,
+        -224
+      ],
+      "id": "36873556-aca7-4cc9-b168-069631ede55c",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Azure OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e1461314-3fb4-4377-9c42-304c8e4dd0c0",
+  "meta": {
+    "instanceId": "423033b72310db528da5a8bb17285be7e78ff6a12d83b7405f95e82565594b5a"
+  },
+  "id": "bQaMiIvG2JLt5sGV",
+  "tags": []
+}

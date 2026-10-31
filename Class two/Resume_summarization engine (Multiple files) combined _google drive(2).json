@@ -1,0 +1,291 @@
+{
+  "name": "Daily Drive Check & AI Summary",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "list",
+        "folderId": {
+          "__rl": true,
+          "value": "YOUR_FOLDER_ID",
+          "mode": "list"
+        },
+        "options": {
+          "query": "trashed = false"
+        }
+      },
+      "id": "google-drive-list",
+      "name": "List Files in Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        420,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Filter files modified/created in the last 24 hours\nconst twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);\nconst items = $input.all();\n\nconst newFiles = items.filter(item => {\n  const created = new Date(item.json.createdTime || item.json.modifiedTime);\n  return created >= twentyFourHoursAgo;\n});\n\nif (newFiles.length > 0) {\n  return newFiles.map(file => ({ json: { hasFiles: true, fileId: file.json.id, fileName: file.json.name } }));\n} else {\n  const today = new Date().toISOString().split('T')[0].replace(/-/g, '_');\n  return [{ json: { hasFiles: false, emptyFileName: `${today}_empty.txt` } }];\n}"
+      },
+      "id": "filter-files",
+      "name": "Check for New Files",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has-files-check",
+              "leftValue": "={{ $json.hasFiles }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-node",
+      "name": "Has New Files?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        860,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.fileId }}",
+          "mode": "id"
+        }
+      },
+      "id": "download-file",
+      "name": "Download File from Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1100,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "data"
+      },
+      "id": "extract-file",
+      "name": "Extract from File",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Summarize the following document content concisely:\n\n{{ $json.text }}"
+      },
+      "id": "ai-agent",
+      "name": "AI Agent / Summarizer",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1540,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "your_email@example.com",
+        "subject": "Daily File Summary - {{ $json.fileName }}",
+        "emailType": "text",
+        "message": "={{ $json.output }}"
+      },
+      "id": "send-email-summary",
+      "name": "Send Summary Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1760,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "jsCode": "const fileName = $json.emptyFileName;\nconst emptyBinary = Buffer.from('').toString('base64');\n\nreturn [{\n  json: { fileName },\n  binary: {\n    data: {\n      data: emptyBinary,\n      mimeType: 'text/plain',\n      fileName: fileName\n    }\n  }\n}];"
+      },
+      "id": "create-empty-file",
+      "name": "Generate Empty File",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "your_email@example.com",
+        "subject": "=Daily Drive Check: No new files - {{ $json.fileName }}",
+        "emailType": "text",
+        "message": "No new files were uploaded to Google Drive in the past 24 hours. Attached is your empty log file.",
+        "attachmentsUi": {
+          "attachmentValue": [
+            {
+              "binaryPropertyName": "data"
+            }
+          ]
+        }
+      },
+      "id": "send-email-empty",
+      "name": "Send Empty File Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1320,
+        420
+      ]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "List Files in Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Files in Drive": {
+      "main": [
+        [
+          {
+            "node": "Check for New Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check for New Files": {
+      "main": [
+        [
+          {
+            "node": "Has New Files?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has New Files?": {
+      "main": [
+        [
+          {
+            "node": "Download File from Drive",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Generate Empty File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download File from Drive": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "AI Agent / Summarizer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent / Summarizer": {
+      "main": [
+        [
+          {
+            "node": "Send Summary Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Empty File": {
+      "main": [
+        [
+          {
+            "node": "Send Empty File Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

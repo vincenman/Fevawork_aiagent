@@ -1,0 +1,289 @@
+{
+  "name": "Resume summarization engine (Multiple files)_combined - Google Drive",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-480, 336],
+      "id": "8527ca9c-92a5-43d9-952e-182418b6bc6a",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "operation": "search",
+        "searchMethod": "query",
+        "queryString": "mimeType = 'application/pdf' and trashed = false",
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "mode": "id",
+            "value": "INPUT_FOLDER_ID"
+          }
+        },
+        "options": {
+          "fields": ["id", "name", "mimeType"]
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [-240, 336],
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "name": "Search PDFs in Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "YOUR_GOOGLE_DRIVE_CREDENTIAL_ID",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $json.id }}"
+        },
+        "options": {
+          "binaryPropertyName": "data"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [0, 336],
+      "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "name": "Download PDF",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "YOUR_GOOGLE_DRIVE_CREDENTIAL_ID",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [240, 336],
+      "id": "66f824b9-cd67-4d11-aaa3-b394687421ae",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+      "typeVersion": 1,
+      "position": [480, 544],
+      "id": "83feec72-5eaa-4ba6-8c2d-17126384909f",
+      "name": "Azure OpenAI Chat Model",
+      "credentials": {
+        "azureOpenAiApi": {
+          "id": "XFXTXkgCmg0qvlKG",
+          "name": "Azure Open AI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "options": {
+          "systemMessage": "Analyze the attached resume and extract the following information with the following format:\nName of the candidate: <put the name here>\nEducation: <put the education details here>\nWorking experience: <put the summarize of the working experience>\n\n",
+          "returnIntermediateSteps": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [480, 336],
+      "id": "89af1430-873a-4e72-a044-7e701afedb2b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "summaries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [720, 336],
+      "id": "e212173d-20cd-4ec6-985b-c7147c33bf89",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the first incoming item (usually from Aggregate node)\nconst items = $input.all();\n\nif (items.length === 0 || !items[0].json.summaries) {\n  return [];\n}\n\nconst summaries = items[0].json.summaries;\n\n// Build the lines array\nconst lines = [];\n\nsummaries.forEach((item, index) => {\n  // Prefer original filename from Google Drive download, then fallback\n  const filename = item.name || item.fileName || item.basename || `Resume_${index + 1}`;\n  \n  lines.push(`=== ${filename} ===\\n`);\n  lines.push((item.output || '').trim());\n  lines.push('\\n\\n');\n});\n\n// Create header with current date/time\nconst now = new Date();\nconst formattedDate = now.toLocaleString('en-US', {\n  year: 'numeric',\n  month: '2-digit',\n  day: '2-digit',\n  hour: '2-digit',\n  minute: '2-digit',\n  second: '2-digit',\n  hour12: false\n}).replace(/,/, '');\n\nconst header = \n  `RESUME BATCH SUMMARY - Processed on ${formattedDate}\\n` +\n  `Total resumes processed: ${summaries.length}\\n` +\n  '='.repeat(50) + '\\n\\n';\n\nconst combinedText = header + lines.join('');\n\nreturn [{\n  json: {\n    combinedSummary: combinedText\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [960, 336],
+      "id": "bc019689-4bf6-4276-a952-8438b35b3287",
+      "name": "Code in JS"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "combinedSummary",
+        "options": {
+          "fileName": "resume_batch_summary.txt"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [1200, 336],
+      "id": "e297d775-a993-457a-be0e-376924505114",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "upload",
+        "inputDataFieldName": "data",
+        "name": "={{ $binary.data.fileName || 'resume_batch_summary.txt' }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "OUTPUT_FOLDER_ID"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [1440, 336],
+      "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+      "name": "Upload Summary to Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "YOUR_GOOGLE_DRIVE_CREDENTIAL_ID",
+          "name": "Google Drive account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Search PDFs in Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search PDFs in Drive": {
+      "main": [
+        [
+          {
+            "node": "Download PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download PDF": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Azure OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Code in JS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JS": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Upload Summary to Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "5d0c51bf-3fc7-4daf-99e4-b8910a65fc5d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1129b52ae686a9ba21506e5225f7b9073c642e10694828dd61fef6f7566b7891"
+  },
+  "id": "xuKeNZ1J2oNetyFF",
+  "tags": []
+}

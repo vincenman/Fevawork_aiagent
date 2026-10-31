@@ -1,0 +1,189 @@
+{
+  "name": "Telegram chatbot v4",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        320
+      ],
+      "id": "c8d4d6ae-5026-4e09-b328-a9f81b24d628",
+      "name": "Azure OpenAI Chat Model",
+      "credentials": {
+        "azureOpenAiApi": {
+          "id": "fv8R4rhiU9guomlg",
+          "name": "Azure Open AI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        32
+      ],
+      "id": "8ece5db8-403d-4675-8f75-5d354313a95d",
+      "name": "Telegram Trigger",
+      "webhookId": "60e7d912-45c0-45d7-a19f-016ce27f45b8",
+      "credentials": {
+        "telegramApi": {
+          "id": "7BBlWqOi8qfK9oMA",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionKey": "",
+        "contextWindowLength": 10
+      },
+      "id": "0610f2a6-b13c-4cd9-979c-7764ef994164",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        144,
+        304
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "Summarize the content in point form",
+          "returnIntermediateSteps": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "88b554bf-df2c-4941-8c40-a02b10f1bef5",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "output",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        352,
+        0
+      ],
+      "id": "6945f548-d1d0-428c-8a4f-9e513020ee9b",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "sendDocument",
+        "chatId": "727270924",
+        "binaryData": true,
+        "additionalFields": {
+          "fileName": "Response"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        560,
+        0
+      ],
+      "id": "8bfef701-79de-4c14-86a3-1dd066c1c318",
+      "name": "Send a document",
+      "webhookId": "d173f613-7d77-460e-9716-a9672be90e7b",
+      "credentials": {
+        "telegramApi": {
+          "id": "gxEWs8Hr2o9NFSHD",
+          "name": "Telegram account 3"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Azure OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Send a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "32c37b9c-25b5-43a5-8d09-b087ff2ca3c5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "423033b72310db528da5a8bb17285be7e78ff6a12d83b7405f95e82565594b5a"
+  },
+  "id": "GHGTZ7wZkbY6vT4S",
+  "tags": []
+}

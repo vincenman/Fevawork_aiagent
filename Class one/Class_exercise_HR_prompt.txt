@@ -1,0 +1,14 @@
+--------------------------------------
+As a HR department head of an AI company now I am recruiting one headcount: Chief Data Architect
+His main roles are:
+Develop machine learning model with python
+Perform task automation with Python and/or Java
+The candidate should have at least 3 years of solid working experience on related industry.
+-----------------
+With the job role for the new possible candidate summarise the revalant information for this candidate.
+summarize the result in table format with the following columns: 
+name: <name of the candicate>
+Eudcation:<the education of the candidate>
+Working experience: <To summarize the working experience of the candidate>
+Score: <To give a score from 0 to 10 based on the matching of the qualification of the candidate to the job description>
+Reason: < To explain why the candidate would have the score>

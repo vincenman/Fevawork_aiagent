@@ -1,0 +1,243 @@
+{
+  "name": "Resume summarization engine (Multiple files)_combined",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        336
+      ],
+      "id": "8527ca9c-92a5-43d9-952e-182418b6bc6a",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "fileSelector": "C:/temp/*.pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        64
+      ],
+      "id": "f4d4385e-f96e-4982-8cec-a25d5aa19542",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        112,
+        144
+      ],
+      "id": "66f824b9-cd67-4d11-aaa3-b394687421ae",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+      "typeVersion": 1,
+      "position": [
+        336,
+        544
+      ],
+      "id": "83feec72-5eaa-4ba6-8c2d-17126384909f",
+      "name": "Azure OpenAI Chat Model",
+      "credentials": {
+        "azureOpenAiApi": {
+          "id": "XFXTXkgCmg0qvlKG",
+          "name": "Azure Open AI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "options": {
+          "systemMessage": "Analyze the attached resume and extract the following information with the following format:\nName of the candidate: <put the name here>\nEducation: <put the education details here>\nWorking experience: <put the summarize of the working experience>\n\n",
+          "returnIntermediateSteps": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        336,
+        272
+      ],
+      "id": "89af1430-873a-4e72-a044-7e701afedb2b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "summaries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        688,
+        272
+      ],
+      "id": "e212173d-20cd-4ec6-985b-c7147c33bf89",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "combinedSummary",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1104,
+        272
+      ],
+      "id": "e297d775-a993-457a-be0e-376924505114",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "C:/temp/result.txt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1312,
+        272
+      ],
+      "id": "6fd1343d-5810-46d0-8c1e-ba3f536dc603",
+      "name": "Read/Write Files from Disk1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the first incoming item (usually from Aggregate node)\nconst items = $input.all();\n\nif (items.length === 0 || !items[0].json.summaries) {\n  // Safety: return empty if no data\n  return [];\n}\n\nconst summaries = items[0].json.summaries;\n\n// Build the lines array\nconst lines = [];\n\nsummaries.forEach((item, index) => {\n  // Use basename → filename → fallback numbering\n  const filename = item.basename || item.filename || `Resume_${index + 1}`;\n  \n  lines.push(`=== ${filename} ===\\n`);\n  lines.push((item.output || '').trim());\n  lines.push('\\n\\n');  // separation between entries\n});\n\n// Create header with current date/time\nconst now = new Date();\nconst formattedDate = now.toLocaleString('en-US', {\n  year: 'numeric',\n  month: '2-digit',\n  day: '2-digit',\n  hour: '2-digit',\n  minute: '2-digit',\n  second: '2-digit',\n  hour12: false\n}).replace(/,/, '');  // remove comma → \"02/24/2026 14:35:22\"\n\nconst header = \n  `RESUME BATCH SUMMARY - Processed on ${formattedDate}\\n` +\n  `Total resumes processed: ${summaries.length}\\n` +\n  '='.repeat(50) + '\\n\\n';\n\n// Combine everything\nconst combinedText = header + lines.join('');\n\n// Return single item with the combined result\nreturn [{\n  json: {\n    combinedSummary: combinedText\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        272
+      ],
+      "id": "bc019689-4bf6-4276-a952-8438b35b3287",
+      "name": "Code in JS "
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Azure OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Code in JS ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JS ": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "5d0c51bf-3fc7-4daf-99e4-b8910a65fc5d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1129b52ae686a9ba21506e5225f7b9073c642e10694828dd61fef6f7566b7891"
+  },
+  "id": "xuKeNZ1J2oNetyFF",
+  "tags": []
+}

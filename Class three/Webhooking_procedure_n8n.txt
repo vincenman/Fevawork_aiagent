@@ -1,0 +1,32 @@
+Get the token from ngrk and configure it in your local PC (with ngrok installed)
+
+1. Under command prompt issue the following command:
+
+ngrok config add-authtoken <Your token assigned by Ngrok> 
+
+ngrok http http://localhost:5678
+
+2. Go back to ngrok and get the endpoint:
+
+https://c2f028990dff.ngrok-free.app
+
+https://fddf8e263fe3.ngrok-free.app
+
+https://283975f4cbe0.ngrok-free.app
+
+3. Open PowerShell:
+
+Setup the webhooking setup for n8n:
+$env:WEBHOOK_URL = "https://fddf8e263fe3.ngrok-free.app" 
+
+export WEBHOOK_URL="https://283975f4cbe0.ngrok-free.app"
+
+https://773027a8ad40.ngrok-free.app
+
+
+
+4. Lauch n8n:
+n8n.cmd start
+
+
+

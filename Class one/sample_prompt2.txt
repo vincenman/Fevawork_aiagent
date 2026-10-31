@@ -1,0 +1,21 @@
+以下是一個預算計算的例子
+--------------------------
+例子：
+場地租賃費 (Venue Rental Fee)=0
+器材購置費 (Equipment Purchase Cost)=3000
+教練費 (Coaching Fee)=350
+教練時間 (Coaching Time)=20
+宣傳費用 (Promotion Expenses)=2000
+保險費用 (Insurance Expenses)=1500
+總支出：13500
+
+--------------------------
+現在支出更新如下：
+場地租賃費 (Venue Rental Fee)=9000
+器材購置費 (Equipment Purchase Cost)=3000
+教練費 (Coaching Fee)=390
+教練時間 (Coaching Time)=20
+宣傳費用 (Promotion Expenses)=2000
+保險費用 (Insurance Expenses)=1500
+
+請用第一個例子去計算這次的預算是多少。
