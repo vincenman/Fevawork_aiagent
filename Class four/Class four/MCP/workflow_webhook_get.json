@@ -1,0 +1,147 @@
+{
+  "name": "workflow_webhook_get_request",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://mini-mcp-server.onrender.com/call",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"tool\": \"get_market_data\",\n  \"args\": { \"symbol\": \"NQ\" }\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        360,
+        0
+      ],
+      "id": "42ec7b72-0387-42db-b2f9-55697073d3d4",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "chatId": "5349094008",
+        "text": "=Close price of NQ is : {{ $json.last }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        580,
+        0
+      ],
+      "id": "7184043d-3b9e-43b8-a54e-366cc7f06661",
+      "name": "Send a text message",
+      "webhookId": "d1dccfea-a02e-4be2-b690-093ca73267f0",
+      "credentials": {
+        "telegramApi": {
+          "id": "Nv9c4hiHhGrnETSy",
+          "name": "algo_fevawork1018"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "trigger-nq",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "webhook-trigger-id-1",
+      "name": "Webhook",
+      "webhookId": "webhook-unique-id-12345"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-1",
+              "leftValue": "={{ $json.query.GO }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        180,
+        0
+      ],
+      "id": "if-node-id-1",
+      "name": "If GO Parameter Exists"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If GO Parameter Exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If GO Parameter Exists": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "152f220f-5265-4ff4-8672-12bc50f2a386",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c130fce35963b9020aedbb129af763fe17b75ec9ce6fe91deefb17e7b964fba5"
+  },
+  "nodeGroups": [],
+  "id": "wBftIjwL4vYSgKGC",
+  "tags": []
+}

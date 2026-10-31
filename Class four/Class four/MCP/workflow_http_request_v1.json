@@ -1,0 +1,94 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "221ca64a-6dd7-49ff-a4da-8befce2db52a",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8787/call",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"tool\": \"get_market_data\",\n  \"args\": { \"symbol\": \"NQ\" }\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        272,
+        0
+      ],
+      "id": "27b1ba2a-9deb-4d37-9cf5-f42b0a910bcb",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "chatId": "727270924",
+        "text": "=Close price of NQ is : {{ $json.last }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        528,
+        0
+      ],
+      "id": "6981679a-4fde-4c9b-9322-24f51c67940b",
+      "name": "Send a text message",
+      "webhookId": "d1dccfea-a02e-4be2-b690-093ca73267f0",
+      "credentials": {
+        "telegramApi": {
+          "id": "yry4xtp0NQ0pum0J",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2edef90c-35ee-4672-becd-4beef0cce472",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f8a8f523f69e735548ce4d87a29abb5537653c840b8e64bf72f7ae619aeef2ad"
+  },
+  "id": "XWuYRbdD4RrfSWvn",
+  "tags": []
+}

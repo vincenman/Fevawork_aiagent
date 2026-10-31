@@ -1,1 +1,12 @@
-複製了         1 個檔案。
+.env
+*.key
+*.zip
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
