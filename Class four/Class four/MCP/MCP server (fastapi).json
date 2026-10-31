@@ -1,0 +1,58 @@
+{
+  "name": "MCP server (fastapi)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "70e06f9c-43e4-4eca-bfb6-ea57044c2d94",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8787/call",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"tool\": \"get_market_data\",\n  \"args\": { \"symbol\": \"NQ\" }\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        304,
+        64
+      ],
+      "id": "f8104309-2870-4a2a-b87a-9ba7c7868745",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e4c38cfa-c560-48fc-bb51-dd90f79906ba",
+  "meta": {
+    "instanceId": "423033b72310db528da5a8bb17285be7e78ff6a12d83b7405f95e82565594b5a"
+  },
+  "id": "7665lvJnNWiUNZOv",
+  "tags": []
+}
