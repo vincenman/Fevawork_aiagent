@@ -108,12 +108,19 @@ def fetch_articles_from_url(url: str) -> List[Dict[str, str]]:
         page = context.new_page()
 
         try:
-            page.goto(url, wait_until="networkidle", timeout=60000)
-            page.wait_for_timeout(3000)
+            page.goto(url, wait_until="domcontentloaded", timeout=60000)
+            page.wait_for_timeout(5000)
 
-            link_elements = page.query_selector_all('a[href*="/article/"]')
-            seen_urls = set()
+            # Debug: print page title and some text to verify content loaded
+            print(f"  Page title: {page.title()[:100]}")
+
+            # Try multiple selectors for article links
             articles = []
+            seen_urls = set()
+
+            # Method 1: Look for links containing /article/
+            link_elements = page.query_selector_all('a[href*="/article/"]')
+            print(f"  Found {len(link_elements)} links with /article/")
 
             for link in link_elements:
                 href = (link.get_attribute("href") or "").strip()
@@ -130,6 +137,21 @@ def fetch_articles_from_url(url: str) -> List[Dict[str, str]]:
 
                 seen_urls.add(href)
                 articles.append({"title": text, "url": full_url})
+
+            # Method 2: If no articles found, try looking for news-item links
+            if not articles:
+                print("  Trying alternative selectors...")
+                for selector in ["a.gtm-link", "a[class*='title']", "h3 a", "h2 a", ".news-title a"]:
+                    alt_links = page.query_selector_all(selector)
+                    if alt_links:
+                        print(f"  Selector '{selector}' found {len(alt_links)} links")
+                        for link in alt_links:
+                            href = (link.get_attribute("href") or "").strip()
+                            text = (link.inner_text() or "").strip()
+                            if href and text and len(text) > 10 and href not in seen_urls:
+                                full_url = f"https://inews.hket.com{href}" if href.startswith("/") else href
+                                seen_urls.add(href)
+                                articles.append({"title": text, "url": full_url})
 
             return articles
 
