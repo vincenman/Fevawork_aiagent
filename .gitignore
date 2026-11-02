@@ -17,3 +17,7 @@ Thumbs.db
 *token*
 openrouter*
 client_secret*
+
+# Scraper output files (regenerated each run)
+*_articles.csv
+*_articles.txt

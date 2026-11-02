@@ -1,0 +1,11 @@
+[project]
+name = "hket-news-scraper"
+version = "1.0.0"
+description = "HKET news scraper with Telegram integration"
+requires-python = ">=3.10"
+dependencies = [
+    "requests>=2.31",
+    "beautifulsoup4>=4.12",
+    "python-telegram-bot>=21",
+    "python-dotenv>=1.0",
+]
