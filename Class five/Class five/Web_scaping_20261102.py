@@ -1,16 +1,8 @@
 """Web scraping example with exactly 5 topics — top 10 links + insights + Telegram.
 
-This script demonstrates a simple web scraping workflow using:
-1. HTTP requests
-2. HTML parsing
-3. Link extraction
-4. Dynamic content handling
-5. Saving the extracted data
-
-It is a rewritten version of the earlier HKET newsletter scraper, simplified to
-focus on five topic areas only. For each topic the top 10 article links are
-saved, a keyword-based insight section is appended to the text output, and
-the results are sent to a Telegram chat.
+This script uses RSS feeds (no browser needed) to fetch news headlines from
+5 topic areas, saves the top 10 links per topic with keyword insights, and
+sends the results to a Telegram chat.
 """
 
 from __future__ import annotations
@@ -24,32 +16,31 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Any
 
-from bs4 import BeautifulSoup
+import feedparser
 from dotenv import load_dotenv
-from playwright.sync_api import sync_playwright
 import telegram
 
 
 TOPICS: List[Dict[str, str]] = [
     {
         "name": "Technology",
-        "url": "https://inews.hket.com/sran010/%E7%A7%91%E6%8A%80?mtc=80042",
+        "url": "https://news.google.com/rss?hl=zh-HK&gl=HK&ceid=HK:zh-HK&topic=tech",
     },
     {
         "name": "Finance",
-        "url": "https://inews.hket.com/sran009/%E5%8D%B3%E5%B8%82%E8%B2%A1%E7%B6%93?mtc=b0101",
+        "url": "https://news.google.com/rss?hl=zh-HK&gl=HK&ceid=HK:zh-HK&topic=business",
     },
     {
-        "name": "Business",
-        "url": "https://inews.hket.com/sran013/%E5%95%86%E6%A5%AD?mtc=80042",
+        "name": "World",
+        "url": "https://news.google.com/rss?hl=zh-HK&gl=HK&ceid=HK:zh-HK&topic=world",
     },
     {
-        "name": "Lifestyle",
-        "url": "https://inews.hket.com/sran011/%E7%94%9F%E6%B4%BB?mtc=80042",
+        "name": "Hong Kong",
+        "url": "https://news.google.com/rss?hl=zh-HK&gl=HK&ceid=HK:zh-HK&topic=nation",
     },
     {
-        "name": "International",
-        "url": "https://inews.hket.com/sran012/%E5%9C%8B%E9%9A%9B?mtc=80042",
+        "name": "Science",
+        "url": "https://news.google.com/rss?hl=zh-HK&gl=HK&ceid=HK:zh-HK&topic=science",
     },
 ]
 
@@ -64,7 +55,6 @@ TELEGRAM_CHAT_ID: str = os.getenv("TELEGRAM_CHAT_ID", "").strip().strip("'\"")
 
 # ── Stop words (Chinese + English) to exclude from keyword analysis ─────────
 STOP_WORDS: set[str] = {
-    # Chinese
     "的", "了", "在", "是", "我", "有", "和", "就", "不", "人", "都", "一",
     "個", "上", "也", "很", "到", "說", "要", "去", "你", "會", "著",
     "沒有", "看", "好", "自己", "這", "他", "她", "它", "們", "與", "及",
@@ -73,7 +63,6 @@ STOP_WORDS: set[str] = {
     "新", "大", "小", "多", "後", "前", "時", "來", "還", "已", "並",
     "於", "向", "把", "被", "讓", "用", "做", "作", "過", "出", "開",
     "第", "兩", "三", "四", "五", "六", "七", "八", "九", "十",
-    # English
     "the", "a", "an", "of", "in", "on", "at", "to", "for", "with",
     "and", "or", "is", "are", "was", "were", "be", "been", "being",
     "have", "has", "had", "do", "does", "did", "will", "would", "can",
@@ -86,78 +75,28 @@ STOP_WORDS: set[str] = {
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  Core scraping helpers (using Playwright for JS-rendered pages)
+#  Core scraping helpers (RSS-based, no browser needed)
 # ═══════════════════════════════════════════════════════════════════════════
 
-USER_AGENT = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/124.0.0.0 Safari/537.36"
-)
+def fetch_articles_from_rss(url: str) -> List[Dict[str, str]]:
+    """Parse an RSS feed and extract article titles and links."""
+    feed = feedparser.parse(url)
+    articles: List[Dict[str, str]] = []
+    seen_urls = set()
 
+    for entry in feed.entries:
+        title = (entry.get("title") or "").strip()
+        link = (entry.get("link") or "").strip()
 
-def fetch_articles_from_url(url: str) -> List[Dict[str, str]]:
-    """Use Playwright to load an HKET listing page and extract article links."""
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context(
-            locale="zh-HK",
-            viewport={"width": 1440, "height": 900},
-            user_agent=USER_AGENT,
-        )
-        page = context.new_page()
+        if not title or not link or len(title) < 10:
+            continue
+        if link in seen_urls:
+            continue
 
-        try:
-            page.goto(url, wait_until="domcontentloaded", timeout=60000)
-            page.wait_for_timeout(5000)
+        seen_urls.add(link)
+        articles.append({"title": title, "url": link})
 
-            # Debug: print page title and some text to verify content loaded
-            print(f"  Page title: {page.title()[:100]}")
-
-            # Try multiple selectors for article links
-            articles = []
-            seen_urls = set()
-
-            # Method 1: Look for links containing /article/
-            link_elements = page.query_selector_all('a[href*="/article/"]')
-            print(f"  Found {len(link_elements)} links with /article/")
-
-            for link in link_elements:
-                href = (link.get_attribute("href") or "").strip()
-                text = (link.inner_text() or "").strip()
-
-                if not href or not text or len(text) < 15:
-                    continue
-                if href in seen_urls:
-                    continue
-
-                full_url = f"https://inews.hket.com{href}" if href.startswith("/") else href
-                if "inews.hket.com" not in full_url:
-                    continue
-
-                seen_urls.add(href)
-                articles.append({"title": text, "url": full_url})
-
-            # Method 2: If no articles found, try looking for news-item links
-            if not articles:
-                print("  Trying alternative selectors...")
-                for selector in ["a.gtm-link", "a[class*='title']", "h3 a", "h2 a", ".news-title a"]:
-                    alt_links = page.query_selector_all(selector)
-                    if alt_links:
-                        print(f"  Selector '{selector}' found {len(alt_links)} links")
-                        for link in alt_links:
-                            href = (link.get_attribute("href") or "").strip()
-                            text = (link.inner_text() or "").strip()
-                            if href and text and len(text) > 10 and href not in seen_urls:
-                                full_url = f"https://inews.hket.com{href}" if href.startswith("/") else href
-                                seen_urls.add(href)
-                                articles.append({"title": text, "url": full_url})
-
-            return articles
-
-        finally:
-            context.close()
-            browser.close()
+    return articles
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -181,18 +120,17 @@ def generate_insights(topic_name: str, articles: List[Dict[str, str]]) -> str:
 
     titles = [a["title"] for a in articles]
 
-    # ── Count keyword frequency across all titles ──────────────────────
     all_tokens: List[str] = []
     for t in titles:
         all_tokens.extend(tokenize(t))
     keyword_counts = Counter(all_tokens)
     top_keywords = keyword_counts.most_common(10)
 
-    # ── Detect brand / company mentions ────────────────────────────────
     brand_pattern = re.compile(
         r"Apple|iPhone|iPad|Mac|Meta|Google|Microsoft|Amazon|Samsung|"
         r"OpenAI|ChatGPT|Threads|Instagram|WhatsApp|Facebook|Reddit|"
-        r"Cloudflare|Jabra|Sanrio|Momax|HKET|HKCERT|國泰|香港|中國|美國",
+        r"Cloudflare|Jabra|Sanrio|Momax|HKET|HKCERT|國泰|香港|中國|美國|"
+        r"Tesla|Twitter|Xiaomi|Huawei|ByteDance|TikTok|Alibaba|Tencent",
         re.IGNORECASE,
     )
     brand_mentions: Counter[str] = Counter()
@@ -200,7 +138,6 @@ def generate_insights(topic_name: str, articles: List[Dict[str, str]]) -> str:
         for m in brand_pattern.finditer(t):
             brand_mentions[m.group()] += 1
 
-    # ── Detect topic categories ────────────────────────────────────────
     topic_keywords: dict[str, list[str]] = {
         "AI / Technology": ["ai", "人工智能", "chatgpt", "llm", "model", "robot", "自動化"],
         "Cybersecurity": ["安全", "漏洞", "hack", "attack", "privacy", "保安", "網絡"],
@@ -215,7 +152,6 @@ def generate_insights(topic_name: str, articles: List[Dict[str, str]]) -> str:
             if any(kw in t_lower for kw in kws):
                 topic_hits[cat] += 1
 
-    # ── Build the insight text ─────────────────────────────────────────
     lines: List[str] = []
     lines.append("")
     lines.append("=" * 70)
@@ -223,28 +159,24 @@ def generate_insights(topic_name: str, articles: List[Dict[str, str]]) -> str:
     lines.append("=" * 70)
     lines.append("")
 
-    # 1. Overview
     lines.append("[Overview]")
     lines.append(f"   Category        : {topic_name}")
     lines.append(f"   Articles fetched : {len(articles)} (showing top 10)")
     lines.append(f"   Generated at    : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     lines.append("")
 
-    # 2. Top keywords
     lines.append("[Top Keywords in Titles]")
     for kw, count in top_keywords:
         bar = "#" * count
         lines.append(f"   {kw:>12}  {bar}  ({count})")
     lines.append("")
 
-    # 3. Brand / company mentions
     if brand_mentions:
         lines.append("[Brand / Company Mentions]")
         for brand, count in brand_mentions.most_common(8):
             lines.append(f"   {brand:>14}  {'#' * count}  ({count})")
         lines.append("")
 
-    # 4. Topic distribution
     if topic_hits:
         lines.append("[Topic Distribution]")
         for cat, count in topic_hits.most_common():
@@ -252,7 +184,6 @@ def generate_insights(topic_name: str, articles: List[Dict[str, str]]) -> str:
             lines.append(f"   {cat:>22}  {bar}  ({count})")
         lines.append("")
 
-    # 5. Narrative summary
     lines.append("[Summary]")
     if top_keywords:
         top_3 = [kw for kw, _ in top_keywords[:3]]
@@ -305,7 +236,6 @@ def write_text(topic_name: str, articles: List[Dict[str, str]]) -> None:
         lines.append(f"{idx:>2}. {article['title']}")
         lines.append(f"    URL: {article['url']}")
 
-    # Append insights
     lines.append(generate_insights(topic_name, top10))
 
     file_path.write_text("\n".join(lines), encoding="utf-8")
@@ -331,7 +261,6 @@ async def send_to_telegram(topic_name: str) -> None:
     chat_id = TELEGRAM_CHAT_ID
 
     try:
-        # Send a short caption first
         caption = (
             f"HKET News -- {topic_name}\n"
             f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M')}\n"
@@ -339,7 +268,6 @@ async def send_to_telegram(topic_name: str) -> None:
         )
         await bot.send_message(chat_id=chat_id, text=caption, read_timeout=15)
 
-        # Send the text file as a document
         with open(file_path, "rb") as f:
             await bot.send_document(
                 chat_id=chat_id,
@@ -374,27 +302,26 @@ def main() -> None:
     print("Starting web scraping tasks...")
 
     for topic in TOPICS:
-            topic_name = topic["name"]
-            url = topic["url"]
-            print(f"\n=== {topic_name} ===")
-            print(f"Fetching: {url}")
+        topic_name = topic["name"]
+        url = topic["url"]
+        print(f"\n=== {topic_name} ===")
+        print(f"Fetching: {url}")
 
-            try:
-                articles = fetch_articles_from_url(url)
-                print(f"Found {len(articles)} article(s).")
+        try:
+            articles = fetch_articles_from_rss(url)
+            print(f"Found {len(articles)} article(s).")
 
-                if articles:
-                    write_csv(topic_name, articles)
-                    write_text(topic_name, articles)
-                else:
-                    print("No valid articles found for this topic.")
+            if articles:
+                write_csv(topic_name, articles)
+                write_text(topic_name, articles)
+            else:
+                print("No valid articles found for this topic.")
 
-            except Exception as exc:
-                print(f"Error loading {topic_name}: {exc}")
+        except Exception as exc:
+            print(f"Error loading {topic_name}: {exc}")
 
     print("\nDone. All 5 topics processed.")
 
-    # Send results to Telegram
     asyncio.run(send_all_to_telegram())
 
 
