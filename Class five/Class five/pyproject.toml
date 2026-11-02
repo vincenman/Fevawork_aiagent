@@ -4,7 +4,7 @@ version = "1.0.0"
 description = "HKET news scraper with Telegram integration"
 requires-python = ">=3.10"
 dependencies = [
-    "httpx>=0.27",
+    "playwright>=1.48",
     "beautifulsoup4>=4.12",
     "python-telegram-bot>=21",
     "python-dotenv>=1.0",
