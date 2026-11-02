@@ -1,0 +1,209 @@
+======================================================================
+HKET 科技新聞摘要
+生成時間：2026-10-31 18:55:47
+來源：https://inews.hket.com/sran010/%E7%A7%91%E6%8A%80?mtc=80042
+======================================================================
+
+【1】
+Topic: Apple｜首款觸控MacBook Pro壓軸登場　搭PROLED XDR屏幕、港售$22,999起
+URL: https://inews.hket.com/article/4215870/Apple%EF%BD%9C%E9%A6%96%E6%AC%BE%E8%A7%B8%E6%8E%A7MacBook%20Pro%E5%A3%93%E8%BB%B8%E7%99%BB%E5%A0%B4%E3%80%80%E6%90%ADPROLED%20XDR%E5%B1%8F%E5%B9%95%E3%80%81%E6%B8%AF%E5%94%AE-22,999%E8%B5%B7?mtc=20039
+Summary: 蘋果正式推出首款支援觸控操作的MacBook Pro，搭載全新PROLED XDR螢幕、M5 Pro/M5 Max晶片及回歸的發光蘋果標誌，主打AI創作與專業工作市場。新機將觸控體驗與macOS深度整合，並具備Dynamic Island、輕量化機身及最長24小時續航等特色。香港售價22,999港元起，即日起開放預訂。
+
+【2】
+Topic: ETech試玩｜Jabra Evolve3 65主動降噪/通話收音/音質　表現如何？
+URL: https://inews.hket.com/article/4217279/ETech%E8%A9%A6%E7%8E%A9%EF%BD%9CJabra%20Evolve3%2065%E4%B8%BB%E5%8B%95%E9%99%8D%E5%99%AA-%E9%80%9A%E8%A9%B1%E6%94%B6%E9%9F%B3-%E9%9F%B3%E8%B3%AA%E3%80%80%E8%A1%A8%E7%8F%BE%E5%A6%82%E4%BD%95%EF%BC%9F?mtc=20040
+Summary: Jabra Evolve3 65 是一款專為辦公環境設計的商用耳機，實測顯示其主動降噪功能在辦公室能有效隔絕交談與打字等雜音，且可旋轉咪桿在嘈雜街頭通話時，收音抗噪表現出色，幾乎只保留人聲。耳機配戴輕巧舒適，適合長時間會議使用，並可透過 App 微調降噪與聲音模式。
+
+【3】
+Topic: AI爭議｜兒童暢銷繪本Gruffalo插畫家　擬起訴AI公司侵權
+URL: https://inews.hket.com/article/4217539/AI%E7%88%AD%E8%AD%B0%EF%BD%9C%E5%85%92%E7%AB%A5%E6%9A%A2%E9%8A%B7%E7%B9%AA%E6%9C%ACGruffalo%E6%8F%92%E7%95%AB%E5%AE%B6%E3%80%80%E6%93%AC%E8%B5%B7%E8%A8%B4AI%E5%85%AC%E5%8F%B8%E4%BE%B5%E6%AC%8A?mtc=20040
+Summary: 兒童繪本《Gruffalo》插畫家Axel Scheffler正計劃起訴AI公司未經授權使用其作品進行訓練，並傾向在對創作者較友善的歐盟地區（如德國）提出訴訟。他對於AI能重現其標誌性角色感到震驚，而法律專家指出，證明AI直接複製作品仍有難度，但角色鮮明的知名度將有助於訴訟。
+
+【4】
+Topic: 網絡安全｜國泰約5.3萬宗預訂資料涉保安事故　HKCERT籲防騙徒冒充客服
+URL: https://inews.hket.com/article/4217549/%E7%B6%B2%E7%B5%A1%E5%AE%89%E5%85%A8%EF%BD%9C%E5%9C%8B%E6%B3%B0%E7%B4%845.3%E8%90%AC%E5%AE%97%E9%A0%90%E8%A8%82%E8%B3%87%E6%96%99%E6%B6%89%E4%BF%9D%E5%AE%89%E4%BA%8B%E6%95%85%E3%80%80HKCERT%E7%B1%B2%E9%98%B2%E9%A8%99%E5%BE%92%E5%86%92%E5%85%85%E5%AE%A2%E6%9C%8D?mtc=20040
+Summary: 國泰航空約5.3萬宗預訂資料遭未獲授權存取，涉及2023年8月至2026年9月的訂位紀錄。香港網絡安全事故協調中心（HKCERT）警告，騙徒可能利用這些外洩的航班及個人資料冒充客服進行針對性詐騙，呼籲近期預訂國泰航班的市民提高警覺，切勿輕易透露密碼或轉帳。
+
+【5】
+Topic: Threads｜密友功能Threads Friends登場　最多跟50個朋友分享貼文
+URL: https://inews.hket.com/article/4217524/Threads%EF%BD%9C%E5%AF%86%E5%8F%8B%E5%8A%9F%E8%83%BDThreads%20Friends%E7%99%BB%E5%A0%B4%E3%80%80%E6%9C%80%E5%A4%9A%E8%B7%9F50%E5%80%8B%E6%9C%8B%E5%8F%8B%E5%88%86%E4%BA%AB%E8%B2%BC%E6%96%87?mtc=20040
+Summary: Threads 正在測試名為「Threads Friends」的新功能，讓用戶能建立最多 50 人的密友名單，私下分享限時 24 小時的貼文。這項功能類似 Instagram 的「密友」與 X（前 Twitter）已停用的「Circle」，目前僅在特定地區進行測試。
+
+【6】
+Topic: Reddit｜Google AI模式削減流量　推強制登入防爬蟲抓取
+URL: https://inews.hket.com/article/4217457/Reddit%EF%BD%9CGoogle%20AI%E6%A8%A1%E5%BC%8F%E5%89%8A%E6%B8%9B%E6%B5%81%E9%87%8F%E3%80%80%E6%8E%A8%E5%BC%B7%E5%88%B6%E7%99%BB%E5%85%A5%E9%98%B2%E7%88%AC%E8%9F%B2%E6%8A%93%E5%8F%96?mtc=20040
+Summary: Reddit因應AI搜尋摘要導致網站點擊流量下滑，宣布將推行強制登入才能完整瀏覽內容，藉此防止AI爬蟲抓取數據，並轉向與模型商簽訂授權合約來賺取收益。此舉不僅能提升已登入用戶的廣告商業價值，平台也強調會保留匿名與無痕模式，但具體全球推行時程尚未公布。
+
+【7】
+Topic: Sanrio｜Momax推港澳限量科技系列　涵蓋Hello Kitty玉桂狗Kuromi布甸狗
+URL: https://inews.hket.com/article/4217426/Sanrio%EF%BD%9CMomax%E6%8E%A8%E6%B8%AF%E6%BE%B3%E9%99%90%E9%87%8F%E7%A7%91%E6%8A%80%E7%B3%BB%E5%88%97%E3%80%80%E6%B6%B5%E8%93%8BHello%20Kitty%E7%8E%89%E6%A1%82%E7%8B%97Kuromi%E5%B8%83%E7%94%B8%E7%8B%97?mtc=20040
+Summary: Momax 推出港澳限定的 Sanrio 聯名科技系列，將 Hello Kitty、Kuromi 等角色融入充電器、防丟定位器及磁吸音箱等產品。品牌同時發表以 MagSafe 磁吸技術為核心的「Creator Tech 磁吸創作生態」配件，並委任 5 位創作者擔任首屆推廣大使，演繹甜美科技風潮。
+
+【8】
+Topic: AI應用｜Cloudflare OS助善用AI工具　讓企業發揮生產力
+URL: https://inews.hket.com/article/4217300/AI%E6%87%89%E7%94%A8%EF%BD%9CCloudflare%20OS%E5%8D%94%E5%8A%A9%E5%96%84%E7%94%A8AI%E5%B7%A5%E5%85%B7%E3%80%80%E8%AE%93%E4%BC%81%E6%A5%AD%E7%99%BC%E6%8F%AE%E7%94%9F%E7%94%A2%E5%8A%9B?mtc=20040
+Summary: Cloudflare 推出 AI 工作區「Cloudflare OS」，旨在解決企業員工各自使用 AI 工具所導致的資安風險與成本失控問題，提供一個安全、可控且能快速連接內部系統的統一平台。該平台能自動建立自動化流程、管理部署並整合 AI Gateway 控制成本，同時與專業服務團隊合作，協助企業將日常運作轉化為安全的 AI 代理。
+
+【9】
+Topic: iPhone 18 Pro Max｜開箱實試　升級可變光圈＋Pro Controls專業控制　iPhone真可取代相機？（多圖＋有片）
+URL: https://inews.hket.com/article/4196020/iPhone%2018%20Pro%20Max%EF%BD%9C%E9%96%8B%E7%AE%B1%E5%AF%A6%E8%A9%A6%E3%80%80%E5%8D%87%E7%B4%9A%E5%8F%AF%E8%AE%8A%E5%85%89%E5%9C%88%EF%BC%8BPro%20Controls%E5%B0%88%E6%A5%AD%E6%8E%A7%E5%88%B6%E3%80%80iPhone%E7%9C%9F%E5%8F%AF%E5%8F%96%E4%BB%A3%E7%9B%B8%E6%A9%9F%EF%BC%9F%EF%BC%88%E5%A4%9A%E5%9C%96%EF%BC%89?mtc=20082
+Summary: iPhone 18 Pro Max 的升級重點在於攝影系統，首次加入機械式可變光圈，讓使用者能手動控制景深與進光量，成像更接近相機效果。同時新增的 Pro Controls 功能，將快門、ISO 等專業手動選項整合進原生相機 App，大幅提升拍攝的可控性與創作彈性。
+
+【10】
+Topic: Meta｜香港推Meta One 　 Facebook、 Instagram 、WhatsApp 可用（附訂閱價格）
+URL: https://inews.hket.com/article/4193640/Meta%20AI%E9%A6%99%E6%B8%AF%EF%BD%9CFacebook%E3%80%81Messenger%E3%80%81%20WhatsApp%20%E5%8F%AF%E7%94%A8%20%E3%80%80%E5%85%8D%E8%B2%BB%E7%89%88%E8%88%87%E4%BB%98%E8%B2%BB%E7%89%88%20Meta%20One%20%E6%9C%89%E4%BD%95%E5%88%86%E5%88%A5%EF%BC%9F%EF%BC%88%E9%99%84%E8%A8%82%E9%96%B1%E5%83%B9%E6%A0%BC%EF%BC%89?mtc=20082
+Summary: Meta 在香港推出整合 Facebook、Instagram、WhatsApp 與 Meta AI 的「Meta One」付費訂閱服務，提供超過 50 項進階 AI 工具與創作功能，但不包含移除廣告。此服務將逐步涵蓋現有的 Meta Verified 身份驗證訂戶，並已累積超過 1,500 萬用戶訂閱及試用。
+
+【11】
+Topic: iPhone Duo丨iPhone 18 Pro、AirPods 5等多款Apple新品同步登場　規格、售價一文看清
+URL: https://inews.hket.com/article/4190784/apple-autumn-event-2026-iphone-duo-18-pro?mtc=20082
+Summary: 蘋果於秋季發表會推出首款摺疊手機 iPhone Duo，搭載 A20 Pro 晶片並支援 Apple Pencil，售價 17,499 港元起。同步登場的 iPhone 18 Pro 系列主打可變光圈相機與更強大的 AI 效能，而 AirPods 5 及 Apple Watch Series 12 則分別在降噪與健康感測功能上進行升級。
+
+【12】
+Topic: 網絡安全｜五大AI工具內嵌瀏覽器現漏洞　一鍵偷取SSH金鑰與雲端憑證
+URL: https://inews.hket.com/article/4217281/%E7%B6%B2%E7%B5%A1%E5%AE%89%E5%85%A8%EF%BD%9C%E4%BA%94%E5%A4%A7AI%E5%B7%A5%E5%85%B7%E5%85%A7%E5%B5%8C%E7%80%8F%E8%A6%BD%E5%99%A8%E7%8F%BE%E6%BC%8F%E6%B4%9E%E3%80%80%E4%B8%80%E9%8D%B5%E5%81%B7%E5%8F%96SSH%E9%87%91%E9%91%B0%E8%88%87%E9%9B%B2%E7%AB%AF%E6%86%91%E8%AD%89?mtc=20040
+Summary: 資安公司揭露五款主流AI程式碼助理的內嵌瀏覽器存在「EMBRACE」漏洞，攻擊者可透過惡意網頁或檔案，一鍵竊取開發者的SSH金鑰與雲端憑證。雖然部分工具已修復，但截至報告發布，OpenAI Codex與VS Code仍未修補，使開發者持續暴露在權限遭竊的風險中。
+
+【13】
+Topic: Apple iPad Mini｜屏幕更新率限制在60Hz　高層：OLED已大幅提升反應速度
+URL: https://inews.hket.com/article/4217200/Apple%20iPad%20Mini%EF%BD%9C%E5%B1%8F%E5%B9%95%E6%9B%B4%E6%96%B0%E7%8E%87%E9%99%90%E5%88%B6%E5%9C%A860Hz%E3%80%80%E9%AB%98%E5%B1%A4%EF%BC%9AOLED%E5%B7%B2%E5%A4%A7%E5%B9%85%E6%8F%90%E5%8D%87%E5%8F%8D%E6%87%89%E9%80%9F%E5%BA%A6?mtc=20040
+Summary: 蘋果高層解釋，新款 iPad Mini 雖不支援 ProMotion 技術、螢幕更新率僅限 60Hz，但配備的 OLED 螢幕因像素反應速度遠快於 LCD，能大幅減少動態模糊，帶來流暢視覺體驗。新款 iPad Mini 已開放預購，售價 5,299 港元起。
+
+【14】
+Topic: WhatsApp｜推出四大群組全新功能　助用戶告別「爬文」惡夢
+URL: https://inews.hket.com/article/4217137/WhatsApp%EF%BD%9C%E6%8E%A8%E5%87%BA%E5%9B%9B%E5%A4%A7%E7%BE%A4%E7%B5%84%E5%85%A8%E6%96%B0%E5%8A%9F%E8%83%BD%E3%80%80%E5%8A%A9%E7%94%A8%E6%88%B6%E5%91%8A%E5%88%A5%E3%80%8C%E7%88%AC%E6%96%87%E3%80%8D%E6%83%A1%E5%A4%A2?mtc=20040
+Summary: WhatsApp 推出四項重大更新，包括可將訊息永久置頂、手動補傳近期訊息記錄給新成員，以及能向特定群組分享限時動態。此外，用戶現在還能透過篩選功能，快速查看群組中所有提及或直接回覆自己的未讀訊息，告別爬文惡夢。
+
+【15】
+Topic: AI爭議｜嫌數據中心聲浪擾民？　SpaceXSI一口氣買起418套物業解決
+URL: https://inews.hket.com/article/4216743/AI%E7%88%AD%E8%AD%B0%EF%BD%9C%E5%AB%8C%E6%95%B8%E6%93%9A%E4%B8%AD%E5%BF%83%E8%81%B2%E6%B5%AA%E6%93%BE%E6%B0%91%EF%BC%9F%E3%80%80SpaceXSI%E4%B8%80%E5%8F%A3%E6%B0%A3%E8%B2%B7%E8%B5%B7418%E5%A5%97%E7%89%A9%E6%A5%AD%E8%A7%A3%E6%B1%BA?mtc=20040
+Summary: SpaceXSI 為解決其數據中心燃氣渦輪機引發的噪音擾民爭議，計劃直接收購受影響社區的 418 套物業，估計成本約 7,524 萬美元。當地居民已就持續的噪音與震動提出訴訟，而公司則稱已建造隔音牆並希望當個好鄰居。此外，這些未經許可的渦輪機還被指可能造成空氣污染，每年恐導致高達 4,400 萬美元的健康損失。
+
+【16】
+Topic: AI眼鏡｜AI剪片結合3K HDR錄影　BleeqUp運動智能眼鏡Rover攻港　售$3099起
+URL: https://inews.hket.com/article/4216541/AI%E7%9C%BC%E9%8F%A1%EF%BD%9CAI%E5%89%AA%E7%89%87%E7%B5%90%E5%90%883K%20HDR%E9%8C%84%E5%BD%B1%E3%80%80BleeqUp%E9%81%8B%E5%8B%95%E6%99%BA%E8%83%BD%E7%9C%BC%E9%8F%A1Rover%E6%94%BB%E6%B8%AF%E3%80%80%E5%94%AE-3099%E8%B5%B7?mtc=20040
+Summary: BleeqUp推出專為戶外運動設計的Rover智能眼鏡，主打3K HDR第一身錄影與AI自動剪輯功能，能自動生成具故事性的運動紀錄影片。產品重量僅53克，具備開放式音訊及防風噪通話功能，售價3,099港元起。
+
+【17】
+Topic: AI應用｜AI重定工作模式　非取代專業人才
+URL: https://inews.hket.com/article/4216677/AI%E6%87%89%E7%94%A8%EF%BD%9CAI%E9%87%8D%E5%AE%9A%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F%E3%80%80%E9%9D%9E%E5%8F%96%E4%BB%A3%E5%B0%88%E6%A5%AD%E4%BA%BA%E6%89%8D?mtc=20040
+Summary: 未來學家指出，AI 並非取代專業人才，而是推動工作重新設計，讓專業人士更聚焦於判斷力、洞察力及提供可信賴的建議，未來企業勝出的關鍵在於重視人才發展與培養AI素養。此外，專家預測「人工智能」一詞可能在18個月內消亡，轉向被動式環境智能，而人的價值也將從「你知道甚麼」轉向「你認識誰」，突顯人際關係與面對未知的勇氣。
+
+【18】
+Topic: 哈囉喂｜Instagram推限時萬聖節功能　涵蓋3大範疇
+URL: https://inews.hket.com/article/4216613/%E5%93%88%E5%9B%89%E5%96%82%EF%BD%9CInstagram%E6%8E%A8%E5%87%BA%E3%80%80%E9%99%90%E6%99%82%E8%90%AC%E8%81%96%E7%AF%80%E5%8A%9F%E8%83%BD?mtc=20040
+Summary: Instagram 推出萬聖節限時功能，涵蓋限時動態、便利貼與即時剪輯三大範疇，讓用戶能輕鬆為節日內容添加搞怪趣味。這些創意工具將在萬聖節期間限時開放使用。
+
+【19】
+Topic: TikTok｜推美食指南Must Eat　結合短影片與訂位服務
+URL: https://inews.hket.com/article/4216508/TikTok%EF%BD%9C%E6%8E%A8%E7%BE%8E%E9%A3%9F%E6%8C%87%E5%8D%97Must%20Eat%E3%80%80%E7%B5%90%E5%90%88%E7%9F%AD%E5%BD%B1%E7%89%87%E8%88%87%E8%A8%82%E4%BD%8D%E6%9C%8D%E5%8B%99?mtc=20040
+Summary: TikTok推出美食指南功能「Must Eat」，透過分析平台上的熱門貼文與評論，為用戶整理出可依料理種類、價格等條件篩選的推薦餐廳清單，並優先推薦獨立小店。此舉不僅讓TikTok正式加入與Yelp等在地美食應用程式的競爭，也凸顯社群平台已成為驅動年輕世代餐飲消費的強大力量。
+
+【20】
+Topic: AI應用｜中小企用AI門檻高？　Payment Asia推平台簡化營銷流程
+URL: https://inews.hket.com/article/4216765/AI%E6%87%89%E7%94%A8%EF%BD%9C%E4%B8%AD%E5%B0%8F%E4%BC%81%E7%94%A8AI%E9%96%80%E6%AA%BB%E9%AB%98%EF%BC%9F%E3%80%80Payment%20Asia%E6%8E%A8%E5%B9%B3%E5%8F%B0%E7%B0%A1%E5%8C%96%E7%87%9F%E9%8A%B7%E6%B5%81%E7%A8%8B?mtc=20040
+Summary: Payment Asia推出AI驅動的ARCS營銷平台，讓中小企能快速生成宣傳圖文並整合支付功能，以解決資源不足的痛點。同時，該公司亦發表商戶健康指數，利用AI分析交易數據以助企業識別風險與市場趨勢。
+
+【21】
+Topic: 物流科技｜生產力局舉辦物流科技博覽2026　逾50家企業展示物流科技創新方案
+URL: https://inews.hket.com/article/4216441/%E7%89%A9%E6%B5%81%E7%A7%91%E6%8A%80%EF%BD%9C%E7%94%9F%E7%94%A2%E5%8A%9B%E5%B1%80%E8%88%89%E8%BE%A6%E7%89%A9%E6%B5%81%E7%A7%91%E6%8A%80%E5%8D%9A%E8%A6%BD2026%E3%80%80%E9%80%BE50%E5%AE%B6%E4%BC%81%E6%A5%AD%E5%B1%95%E7%A4%BA%E7%89%A9%E6%B5%81%E7%A7%91%E6%8A%80%E5%89%B5%E6%96%B0%E6%96%B9%E6%A1%88?mtc=20040
+Summary: 生產力局舉辦的「物流科技博覽2026」匯聚逾50家企業，展出AI、物流機械人及智能倉儲等方案，推動物流業智能化與綠色轉型。現場亮點包括能主動為工業車輛充電的移動機械人，以及可監測人體體溫與進入密閉空間作業的四足機械人。大會亦舉辦多場論壇，探討AI預測、低空經濟及ESG等議題，並提供商務配對，助業界掌握數碼轉型機遇。
+
+【22】
+Topic: AI應用｜Kroger加碼科技轉型　RFID 結合電腦視覺重塑零售庫存管理
+URL: https://inews.hket.com/article/4216400/AI%E6%87%89%E7%94%A8%EF%BD%9CKroger%E5%8A%A0%E7%A2%BC%E7%A7%91%E6%8A%80%E8%BD%89%E5%9E%8B%E3%80%80RFID%20%E7%B5%90%E5%90%88%E9%9B%BB%E8%85%A6%E8%A6%96%E8%A6%BA%E9%87%8D%E5%A1%91%E9%9B%B6%E5%94%AE%E5%BA%AB%E5%AD%98%E7%AE%A1%E7%90%86?mtc=20040
+Summary: Kroger 正結合 RFID、電腦視覺與 AI 技術，將貨架數據共享給供應商，以提升商品上架率與銷售。該公司計劃在 2029 年前將 RFID 擴展至超過 2,300 間門店，並利用單品級數據優化補貨與生鮮決策，但部分自動化嘗試因績效未達標而縮減。
+
+【23】
+Topic: 機迷熱話｜PlayStation 5光稜系列亮相　三款透明外殼手掣明年2月4日起陸續出貨
+URL: https://inews.hket.com/article/4216377/%E6%A9%9F%E8%BF%B7%E7%86%B1%E8%A9%B1%EF%BD%9CPlayStation%205%E5%85%89%E7%A8%9C%E7%B3%BB%E5%88%97%E4%BA%AE%E7%9B%B8%E3%80%80%E4%B8%89%E6%AC%BE%E9%80%8F%E6%98%8E%E5%A4%96%E6%AE%BC%E6%89%8B%E6%8E%A3%E6%98%8E%E5%B9%B42%E6%9C%884%E6%97%A5%E8%B5%B7%E9%99%B8%E7%BA%8C%E5%87%BA%E8%B2%A8?mtc=20040
+Summary: Sony 宣布為 PS5 推出全新「光稜系列」周邊，包含閃焰橙、翡翠綠及石墨灰三款透明設計的 DualSense 無線控制器與主機護蓋。該系列採用高亮面透明材質，向 90 年代的經典透明設計致敬，讓玩家能直接欣賞內部結構與工藝細節。新產品售價分別為 639 港元及 563 港元，將於 2027 年 2 月 4 日起陸續限量上市。
+
+【24】
+Topic: Apple｜首款觸控MacBook Pro壓軸登場　搭PROLED XDR屏幕、港售$22,999起
+URL: https://inews.hket.com/article/4215870/Apple%EF%BD%9C%E9%A6%96%E6%AC%BE%E8%A7%B8%E6%8E%A7MacBook%20Pro%E5%A3%93%E8%BB%B8%E7%99%BB%E5%A0%B4%E3%80%80%E6%90%ADPROLED%20XDR%E5%B1%8F%E5%B9%95%E3%80%81%E6%B8%AF%E5%94%AE-22,999%E8%B5%B7?mtc=20040
+Summary: 蘋果首度推出支援觸控操作的全新MacBook Pro，被視為Mac產品線近年最大革新，並搭載PROLED XDR螢幕、M5 Pro/M5 Max晶片及發光Apple標誌回歸。新機結合觸控與專業級顯示技術，主打AI創作與專業工作市場，香港售價22,999港元起。
+
+【25】
+Topic: 科技園公司｜《電池及儲能策略分析報告》：港具4階段價值鏈優勢
+URL: https://inews.hket.com/article/4216138/%E7%A7%91%E6%8A%80%E5%9C%92%E5%85%AC%E5%8F%B8%EF%BD%9C%E3%80%8A%E9%9B%BB%E6%B1%A0%E5%8F%8A%E5%84%B2%E8%83%BD%E7%AD%96%E7%95%A5%E5%88%86%E6%9E%90%E5%A0%B1%E5%91%8A%E3%80%8B%EF%BC%9A%E6%B8%AF%E5%85%B74%E9%9A%8E%E6%AE%B5%E5%83%B9%E5%80%BC%E9%8F%88%E5%84%AA%E5%8B%A2?mtc=20040
+Summary: 香港科技園公司發表報告指出，全球能源轉型與AI數據中心用電激增，使電池及儲能技術成為關鍵，未來十年相關投資額預估高達5萬億美元。報告強調香港具備從材料研發、系統整合、綠色金融到電池回收的完整四階段價值鏈優勢，可成為內地儲能企業進軍國際市場的最佳跳板。目前科技園已匯聚逾百間相關企業，並獲寧德時代、比亞迪等全球頂尖業者落戶，目標數年內將園區內電池及儲能企業數量提升六成。
+
+【26】
+Topic: 摺機比較2026｜iPhone Duo、Samsung Galaxy Z Fold8、HUAWEI Mate XT 2等機型比拼　價錢、規格一覽
+URL: https://inews.hket.com/article/4203195/%E6%91%BA%E6%A9%9F%E6%AF%94%E8%BC%832026%EF%BD%9CiPhone%20Duo%E3%80%81Samsung%20Galaxy%20Z%20Fold8%E3%80%81HUAWEI%20Mate%20XT%202%E7%AD%89%E6%A9%9F%E5%9E%8B%E6%AF%94%E6%8B%BC%E3%80%80%E5%83%B9%E9%8C%A2%E3%80%81%E8%A6%8F%E6%A0%BC%E4%B8%80%E8%A6%BD?mtc=20040
+Summary: 2026年摺疊手機市場競爭白熱化，蘋果首款摺機iPhone Duo正式上市，與三星、華為、小米等品牌在設計、規格與價格上全面開戰。各廠商聚焦於更輕薄機身、強化鉸鏈耐用度及AI影像功能，其中華為推出三摺設計，vivo則主打超大電池容量。整體而言，摺機在形態、性能與生產力應用上均有顯著進化，價位帶也明顯拉開差距。
+
+【27】
+Topic: 香港創科｜香港電訊河套區創新科技中心暨AI機樓揭幕　助力北都發展
+URL: https://inews.hket.com/article/4216051/%E9%A6%99%E6%B8%AF%E5%89%B5%E7%A7%91%EF%BD%9C%E9%A6%99%E6%B8%AF%E9%9B%BB%E8%A8%8A%E6%B2%B3%E5%A5%97%E5%8D%80%E5%89%B5%E6%96%B0%E7%A7%91%E6%8A%80%E4%B8%AD%E5%BF%83%E6%9A%A8AI%E6%A9%9F%E6%A8%93%E6%8F%AD%E5%B9%95%E3%80%80%E5%8A%A9%E5%8A%9B%E5%8C%97%E9%83%BD%E7%99%BC%E5%B1%95?mtc=20040
+Summary: 香港電訊在河套港深創科園設立創新科技中心暨AI機樓正式開幕，將透過高速、超低時延的AI專用網絡串連全港主要數據中心，為大灣區數據流通及高效能AI運算提供基建支持。此舉展現了對北部都會區發展的信心，並有助鞏固香港作為區域先進數據與算力樞紐的地位。
+
+【28】
+Topic: Samsung｜三星傳撤出香港家庭電器市場　官方有回應
+URL: https://inews.hket.com/article/4216033/Samsung%EF%BD%9C%E4%B8%89%E6%98%9F%E5%82%B3%E6%92%A4%E5%87%BA%E9%A6%99%E6%B8%AF%E5%AE%B6%E5%BA%AD%E9%9B%BB%E5%99%A8%E5%B8%82%E5%A0%B4%E3%80%80%E5%AE%98%E6%96%B9%E6%9C%89%E5%9B%9E%E6%87%89?mtc=20040
+Summary: 三星電子證實正進行策略調整，將撤出香港的大型家庭電器市場，並把資源集中於電視、顯示器及手機等核心業務。官方強調業務依然穩健，並會繼續為已售出的家電產品提供售後及維修服務。
+
+【29】
+Topic: 醫療科技｜Anthropic收購「一人藥廠」　拓罕見病治療
+URL: https://inews.hket.com/article/4216025/%E9%86%AB%E7%99%82%E7%A7%91%E6%8A%80%EF%BD%9CAnthropic%E6%94%B6%E8%B3%BC%E3%80%8C%E4%B8%80%E4%BA%BA%E8%97%A5%E5%BB%A0%E3%80%8D%E3%80%80%E6%8B%93%E7%BD%95%E8%A6%8B%E7%97%85%E6%B2%BB%E7%99%82?mtc=20040
+Summary: Anthropic 收購了由一人營運的生技公司 Mithril Medicine，該公司利用自家 AI 模型 Claude 處理大部分科學與營運工作，在不到 18 個月內就將罕見肌肉營養不良症的潛在療法推進到動物實驗階段。這項收購展現了 Anthropic 藉助 AI 加速罕見疾病藥物研發的布局，若後續發展順利，最快在 2028 年底可展開人體臨床試驗。
+
+【30】
+Topic: AI應用｜2029年六成全球2000強企業　AI先導運行主要業務流程
+URL: https://inews.hket.com/article/4215946/AI%E6%87%89%E7%94%A8%EF%BD%9C2029%E5%B9%B4%E5%85%AD%E6%88%90%E5%85%A8%E7%90%832000%E5%BC%B7%E4%BC%81%E6%A5%AD%E3%80%80AI%E5%85%88%E5%B0%8E%E9%81%8B%E8%A1%8C%E4%B8%BB%E8%A6%81%E6%A5%AD%E5%8B%99%E6%B5%81%E7%A8%8B?mtc=20040
+Summary: IDC預測，到2029年將有六成全球2000強企業以AI主導主要業務流程，遠高於目前的13%。此外，報告也指出若企業未為AI代理配備終止開關，其責任保險費將上升25%。
+
+【31】
+Topic: 遊日注意｜知名旅遊及租車服務公司沖繩旅遊OTS遭網絡攻擊　高達73萬人受影響、港人也受害
+URL: https://inews.hket.com/article/4215848/%E9%81%8A%E6%97%A5%E6%B3%A8%E6%84%8F%EF%BD%9C%E7%9F%A5%E5%90%8D%E6%97%85%E9%81%8A%E5%8F%8A%E7%A7%9F%E8%BB%8A%E6%9C%8D%E5%8B%99%E5%85%AC%E5%8F%B8%E6%B2%96%E7%B9%A9%E6%97%85%E9%81%8AOTS%E9%81%AD%E7%B6%B2%E7%B5%A1%E6%94%BB%E6%93%8A%E3%80%80%E9%AB%98%E9%81%9473%E8%90%AC%E4%BA%BA%E5%8F%97%E5%BD%B1%E9%9F%BF%E3%80%81%E6%B8%AF%E4%BA%BA%E4%B9%9F%E5%8F%97%E5%AE%B3?mtc=20040
+Summary: 沖繩知名租車公司OTS遭網路攻擊，導致最多約73萬名客戶的姓名、生日、聯絡方式等個資外洩，其中包含香港用戶。OTS已緊急暫停部分線上服務，並提醒受害用戶留意後續可能出現的釣魚詐騙。
+
+【32】
+Topic: Discord｜Google可搜尋到公開伺服器對話　網民質疑個人私隱受侵犯
+URL: https://inews.hket.com/article/4215814/Discord%EF%BD%9CGoogle%E5%8F%AF%E6%90%9C%E5%B0%8B%E5%88%B0%E5%85%AC%E9%96%8B%E4%BC%BA%E6%9C%8D%E5%99%A8%E5%B0%8D%E8%A9%B1%E3%80%80%E7%B6%B2%E6%B0%91%E8%B3%AA%E7%96%91%E5%80%8B%E4%BA%BA%E9%9A%B1%E7%A7%81%E5%8F%97%E4%BE%B5%E7%8A%AF?mtc=20040
+Summary: Discord宣布將讓公開伺服器的部分對話內容可被Google等搜尋引擎檢索，並為伺服器建立專屬網頁顯示摘要，旨在擴展社群影響力。儘管平台表示私密訊息不受影響且用戶可選擇退出，此舉仍引發用戶強烈反彈，擔憂個人對話在未預期下被公開瀏覽，甚至可能被用於AI模型訓練。
+
+【33】
+Topic: 資料外洩｜日本Sony旗下So-net資料庫遭黑客入侵　258萬用戶個人資料外洩
+URL: https://inews.hket.com/article/4215706/%E8%B3%87%E6%96%99%E5%A4%96%E6%B4%A9%EF%BD%9C%E6%97%A5%E6%9C%ACSony%E6%97%97%E4%B8%8BSo-net%E8%B3%87%E6%96%99%E5%BA%AB%E9%81%AD%E9%BB%91%E5%AE%A2%E5%85%A5%E4%BE%B5%E3%80%80258%E8%90%AC%E7%94%A8%E6%88%B6%E5%80%8B%E4%BA%BA%E8%B3%87%E6%96%99%E5%A4%96%E6%B4%A9?mtc=20040
+Summary: 日本Sony旗下So-net及plala會員資料庫遭駭，導致約258.5萬筆現有及已退訂用戶的個人資料外洩，包括姓名、電話與電郵等。雖然未涉及信用卡資料，但外洩資訊足以用於精準釣魚攻擊，Sony已通報當局並為部分遭外洩的郵件帳戶重設密碼。
+
+【34】
+Topic: AI應用｜Plaud 發布新一代 Agentic AI 平台　香港用戶量一年翻倍
+URL: https://inews.hket.com/article/4215682/AI%E6%87%89%E7%94%A8%EF%BD%9CPlaud%20%E7%99%BC%E5%B8%83%E6%96%B0%E4%B8%80%E4%BB%A3%20Agentic%20AI%20%E5%B9%B3%E5%8F%B0%E3%80%80%E9%A6%99%E6%B8%AF%E7%94%A8%E6%88%B6%E9%87%8F%E4%B8%80%E5%B9%B4%E7%BF%BB%E5%80%8D?mtc=20040
+Summary: Plaud 推出新一代具備自主執行能力的 AI 平台，核心功能「Plaud Agent」能理解會議上下文並自動執行草擬電郵、撰寫報告等複雜任務。該公司在香港的用戶量過去一年翻倍成長，主要增長動能來自金融及教育界的專業人士。
+
+【35】
+Topic: Google AI｜Google推Genie 4世界模型　支援即時改場景兼生成音效　瞄準遊戲、電影及機械人模擬
+URL: https://inews.hket.com/article/4215601/Google%20AI%EF%BD%9CGoogle%E6%8E%A8Genie%204%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E3%80%80%E6%94%AF%E6%8F%B4%E5%8D%B3%E6%99%82%E6%94%B9%E5%A0%B4%E6%99%AF%E5%85%BC%E7%94%9F%E6%88%90%E9%9F%B3%E6%95%88%E3%80%80%E7%9E%84%E6%BA%96%E9%81%8A%E6%88%B2%E3%80%81%E9%9B%BB%E5%BD%B1%E5%8F%8A%E6%A9%9F%E6%A2%B0%E4%BA%BA%E6%A8%A1%E6%93%AC?mtc=20040
+Summary: Google DeepMind 發布新一代世界模型 Genie 4，能生成更逼真的 3D 互動世界，並首度加入即時音效生成與文字指令即時修改場景的功能。此模型強化了物理模擬與畫面真實度，並與 Gemini 語言模型整合，瞄準遊戲開發、電影製作及機器人模擬訓練等應用。
+
+【36】
+Topic: 【美股收市】金價重挫3.7% AI股遭拋售納指跌2.9% 英特爾暴瀉29%（不斷更新）
+URL: https://inews.hket.com/article/4214515/?mtc=20005
+Summary: 美股重挫，主因英特爾財測不佳暴跌29%，引發AI與科技股拋售潮，納指單日跌近2.9%。市場焦點從AI需求成長，轉向憂慮企業鉅額投資的融資壓力與回報，資金轉入能源及防守性股份避險。
+
+【37】
+Topic: 【港股夜期+ADR+北水】夜期收市仍升58點　滙豐ADR低港1%（不斷更新）
+URL: https://inews.hket.com/article/4217063/?mtc=20005
+Summary: 港股10月最後交易日反彈335點收於23294點，但北水持續流出，創下連續13日淨賣出的最長紀錄。夜期小幅上漲58點，而滙豐ADR表現則較港股收盤價低約1.2%。
+
+【38】
+Topic: 【港元定存】港元1年定存最高3.55厘
+URL: https://inews.hket.com/article/4217315/?mtc=20005
+Summary: 港元1年定存利率最高維持在3.55厘，由OCBC及富邦銀行領先。近期多家銀行調整定存息，整體加多減少，但高息榜未見創新高。部分銀行推出短期高息優惠吸客，如大眾銀行「雙11」推11厘一週短存。
+
+【39】
+Topic: 【幣安+比特幣】幣安驚爆遭盜走63億美元　悉數承擔客戶損失　料周日前恢復出金服務、周一公布儲備證明
+URL: https://inews.hket.com/article/4217112/?mtc=20005
+Summary: 幣安遭駭客攻擊損失約63億美元，但平台承諾以自有資金及安全基金全額承擔，並預計在週日前恢復提款服務。事件導致比特幣一度跌破7.7萬美元，幣安已凍結部分被盜資產，並將於週一公布儲備證明以穩定市場信心。
+
+【40】
+Topic: 【驚天盜幣案】幣安趙長鵬求馬斯克幫手：現在不宜講笑，我都曾斥5億美元助你收購Twitter
+URL: https://inews.hket.com/article/4217641/?mtc=20005
+Summary: 幣安遭史上最嚴重駭客攻擊，涉及63億美元資產被轉走，創辦人趙長鵬公開請求馬斯克停止在社群平台X上開玩笑，並提醒對方幣安曾出資5億美元協助其收購Twitter。此事件引發加密貨幣市場劇烈動盪，比特幣失守7.7萬美元，相關概念股也全面重挫。
+
+======================================================================
+— 本摘要由 AI 自動生成，僅供參考 —
+======================================================================
