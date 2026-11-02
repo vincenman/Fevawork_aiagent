@@ -19,12 +19,13 @@ import asyncio
 import csv
 import os
 import re
+import time
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Any
 
-import requests
+import httpx
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 import telegram
@@ -58,7 +59,20 @@ HEADERS = {
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/124.0.0.0 Safari/537.36"
-    )
+    ),
+    "Accept": (
+        "text/html,application/xhtml+xml,application/xml;"
+        "q=0.9,image/avif,image/webp,*/*;q=0.8"
+    ),
+    "Accept-Language": "zh-HK,zh-CN,zh;q=0.9,en;q=0.5",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Referer": "https://inews.hket.com/",
+    "DNT": "1",
+    "Connection": "keep-alive",
+    "Upgrade-Insecure-Requests": "1",
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "same-origin",
 }
 
 OUTPUT_DIR = Path(__file__).resolve().parent
@@ -98,10 +112,22 @@ STOP_WORDS: set[str] = {
 # ═══════════════════════════════════════════════════════════════════════════
 
 def fetch_page(url: str, timeout: int = 20) -> str:
-    """Download the HTML content of a page."""
-    response = requests.get(url, headers=HEADERS, timeout=timeout)
-    response.raise_for_status()
-    return response.text
+    """Download the HTML content of a page using httpx with retry."""
+    # Use a session-like client with retry
+    for attempt in range(3):
+        try:
+            with httpx.Client(headers=HEADERS, follow_redirects=True, timeout=timeout) as client:
+                response = client.get(url)
+                response.raise_for_status()
+                return response.text
+        except httpx.HTTPStatusError as exc:
+            if attempt < 2:
+                wait = (attempt + 1) * 2
+                print(f"  HTTP {exc.response.status_code}, retrying in {wait}s...")
+                time.sleep(wait)
+            else:
+                raise
+    return ""
 
 
 def extract_articles(html: str) -> List[Dict[str, str]]:
