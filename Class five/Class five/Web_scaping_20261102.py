@@ -19,15 +19,14 @@ import asyncio
 import csv
 import os
 import re
-import time
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Any
 
-import httpx
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
+from playwright.sync_api import sync_playwright
 import telegram
 
 
@@ -53,27 +52,6 @@ TOPICS: List[Dict[str, str]] = [
         "url": "https://inews.hket.com/sran012/%E5%9C%8B%E9%9A%9B?mtc=80042",
     },
 ]
-
-HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/124.0.0.0 Safari/537.36"
-    ),
-    "Accept": (
-        "text/html,application/xhtml+xml,application/xml;"
-        "q=0.9,image/avif,image/webp,*/*;q=0.8"
-    ),
-    "Accept-Language": "zh-HK,zh-CN,zh;q=0.9,en;q=0.5",
-    "Accept-Encoding": "gzip, deflate, br",
-    "Referer": "https://inews.hket.com/",
-    "DNT": "1",
-    "Connection": "keep-alive",
-    "Upgrade-Insecure-Requests": "1",
-    "Sec-Fetch-Dest": "document",
-    "Sec-Fetch-Mode": "navigate",
-    "Sec-Fetch-Site": "same-origin",
-}
 
 OUTPUT_DIR = Path(__file__).resolve().parent
 
@@ -108,51 +86,56 @@ STOP_WORDS: set[str] = {
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  Core scraping helpers
+#  Core scraping helpers (using Playwright for JS-rendered pages)
 # ═══════════════════════════════════════════════════════════════════════════
 
-def fetch_page(url: str, timeout: int = 20) -> str:
-    """Download the HTML content of a page using httpx with retry."""
-    # Use a session-like client with retry
-    for attempt in range(3):
+USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/124.0.0.0 Safari/537.36"
+)
+
+
+def fetch_articles_from_url(url: str) -> List[Dict[str, str]]:
+    """Use Playwright to load an HKET listing page and extract article links."""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context(
+            locale="zh-HK",
+            viewport={"width": 1440, "height": 900},
+            user_agent=USER_AGENT,
+        )
+        page = context.new_page()
+
         try:
-            with httpx.Client(headers=HEADERS, follow_redirects=True, timeout=timeout) as client:
-                response = client.get(url)
-                response.raise_for_status()
-                return response.text
-        except httpx.HTTPStatusError as exc:
-            if attempt < 2:
-                wait = (attempt + 1) * 2
-                print(f"  HTTP {exc.response.status_code}, retrying in {wait}s...")
-                time.sleep(wait)
-            else:
-                raise
-    return ""
+            page.goto(url, wait_until="networkidle", timeout=60000)
+            page.wait_for_timeout(3000)
 
+            link_elements = page.query_selector_all('a[href*="/article/"]')
+            seen_urls = set()
+            articles = []
 
-def extract_articles(html: str) -> List[Dict[str, str]]:
-    """Parse article titles and links from the page HTML."""
-    soup = BeautifulSoup(html, "html.parser")
-    articles: List[Dict[str, str]] = []
-    seen_urls = set()
+            for link in link_elements:
+                href = (link.get_attribute("href") or "").strip()
+                text = (link.inner_text() or "").strip()
 
-    for link in soup.select("a[href*='/article/']"):
-        href = (link.get("href") or "").strip()
-        title = " ".join(link.get_text(" ", strip=True).split())
+                if not href or not text or len(text) < 15:
+                    continue
+                if href in seen_urls:
+                    continue
 
-        if not href or not title or len(title) < 10:
-            continue
+                full_url = f"https://inews.hket.com{href}" if href.startswith("/") else href
+                if "inews.hket.com" not in full_url:
+                    continue
 
-        full_url = href if href.startswith("http") else f"https://inews.hket.com{href}"
-        if "inews.hket.com" not in full_url:
-            continue
-        if full_url in seen_urls:
-            continue
+                seen_urls.add(href)
+                articles.append({"title": text, "url": full_url})
 
-        seen_urls.add(full_url)
-        articles.append({"title": title, "url": full_url})
+            return articles
 
-    return articles
+        finally:
+            context.close()
+            browser.close()
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -369,24 +352,23 @@ def main() -> None:
     print("Starting web scraping tasks...")
 
     for topic in TOPICS:
-        topic_name = topic["name"]
-        url = topic["url"]
-        print(f"\n=== {topic_name} ===")
-        print(f"Fetching: {url}")
+            topic_name = topic["name"]
+            url = topic["url"]
+            print(f"\n=== {topic_name} ===")
+            print(f"Fetching: {url}")
 
-        try:
-            html = fetch_page(url)
-            articles = extract_articles(html)
-            print(f"Found {len(articles)} article(s).")
+            try:
+                articles = fetch_articles_from_url(url)
+                print(f"Found {len(articles)} article(s).")
 
-            if articles:
-                write_csv(topic_name, articles)
-                write_text(topic_name, articles)
-            else:
-                print("No valid articles found for this topic.")
+                if articles:
+                    write_csv(topic_name, articles)
+                    write_text(topic_name, articles)
+                else:
+                    print("No valid articles found for this topic.")
 
-        except Exception as exc:
-            print(f"Error loading {topic_name}: {exc}")
+            except Exception as exc:
+                print(f"Error loading {topic_name}: {exc}")
 
     print("\nDone. All 5 topics processed.")
 
