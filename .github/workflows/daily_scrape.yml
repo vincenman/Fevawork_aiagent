@@ -22,6 +22,10 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v5
 
-      - name: Run scraper
+            - name: Install Playwright Chromium
         working-directory: Class five/Class five
-        run: uv run python Web_scaping_20261102.py
+              run: uv run playwright install chromium
+
+            - name: Run scraper
+              working-directory: Class five/Class five
+              run: uv run python Web_scaping_20261102.py
