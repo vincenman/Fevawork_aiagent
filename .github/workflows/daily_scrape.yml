@@ -4,7 +4,7 @@ on:
   schedule:
     # 8:00 AM Hong Kong (UTC+8) = 0:00 UTC
     - cron: "0 0 * * *"
-  workflow_dispatch:
+  workflow_dispatch:  # Allow manual trigger for testing
 
 jobs:
   scrape:
@@ -20,12 +20,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+              uses: astral-sh/setup-uv@v5
 
-      - name: Install Playwright Chromium
-        working-directory: Class five/Class five
-        run: uv run playwright install chromium
-
-      - name: Run scraper
-        working-directory: Class five/Class five
-        run: uv run python Web_scaping_20261102.py
+            - name: Run scraper
+              working-directory: Class five/Class five
+              run: uv run python Web_scaping_20261102.py
